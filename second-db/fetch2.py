@@ -13,4 +13,9 @@ records = cursor.fetchall()
 conn.close()
 
 records_df = pd.DataFrame(records, columns = ['id', 'city', 'name'])
-print(records_df['city'])
+records_df['city_char_counts'] = records_df['city'].str.len()
+records_df['team_char_counts'] = records_df['name'].str.len()
+records_df['length_tuples'] = tuple(zip(records_df['city_char_counts'], records_df['team_char_counts']))
+output = records_df['length_tuples'].to_list()
+
+print(output)
